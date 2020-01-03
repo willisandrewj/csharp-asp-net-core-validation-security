@@ -145,7 +145,7 @@ namespace ConferenceTrackerTests
             }
             var pattern = @"<\s*?div\s*?(asp-validation-summary\s*?=\s*?""ModelOnly""\s*?class\s*?=\s*?""text-danger""|class\s*?=\s*?""text-danger""\s*?asp-validation-summary\s*?=\s*?""ModelOnly"")\s*?(>\s*?</\s*?div\s*?>|\>)";
             var rgx = new Regex(pattern,RegexOptions.IgnoreCase);
-            Assert.True(rgx.IsMatch(file), @"`ConferenceTracker\Views\Speakers\Create.cshtml` view doesn't contain a `Scripts` section containing `@{ await Html.RenderPartialAsync(""_ValidationScriptsPartial""); }`");
+            Assert.True(rgx.IsMatch(file), @"`ConferenceTracker\Views\Speakers\Create.cshtml` view doesn't contain a `div` with the tag `asp-validation-summary` with a value of `""ModelOnly""` in the `Create` form.");
             
             //FirstName
             pattern = @"<\s*?span\s*?(asp-validation-for\s*?=\s*?""FirstName""\s*?class\s*?=\s*?""text-danger""|class\s*?=\s*?""text-danger""\s*?asp-validation-for\s*?=\s*?""FirstName"")\s*?(>\s*?</\s*?span\s*?>|/>)";
@@ -184,11 +184,6 @@ namespace ConferenceTrackerTests
             results = controller.Create(speaker);
             Assert.True(results.GetType() == typeof(ViewResult), "`SpeakersController`'s `HttpPost` `Create` action didn't return a `View` when the `ModelState` was not valid.");
         }
-
-        //- [ ] Setup `ModelState` validation on our `SpeakerController`'s `HttpPost` `Create` action.
-        //  - [ ] Add a condition to our `SpeakerController`'s `HttpPost` `Create` action that checks `ModelState.IsValid`.
-        //    - If `true`, the action should perform the `Create` and `RedirectToAction` just like it did before.
-        //    - If `false`, the action should `return` `View` with an argument of `speaker`. _ASP.NET Core will automatically carry any validation errors back to the client so long as you've provided the model that failed validation._
 
         [Fact(DisplayName = "Add Antiforgery and Binding To Create Action @add-antiforgery-and-binding-to-create-action")]
         public void AddAntiforgeryAndBindingToCreateAction()
