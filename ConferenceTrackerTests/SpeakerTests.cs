@@ -145,7 +145,7 @@ namespace ConferenceTrackerTests
             }
             var pattern = @"<\s*?div\s*?(asp-validation-summary\s*?=\s*?""ModelOnly""\s*?class\s*?=\s*?""text-danger""|class\s*?=\s*?""text-danger""\s*?asp-validation-summary\s*?=\s*?""ModelOnly"")\s*?(>\s*?</\s*?div\s*?>|\>)";
             var rgx = new Regex(pattern,RegexOptions.IgnoreCase);
-            Assert.True(rgx.IsMatch(file), @"`ConferenceTracker\Views\Speakers\Create.cshtml` view doesn't contain a `Scripts` section containing `@{ await Html.RenderPartialAsync(""_ValidationScriptsPartial""); }`");
+            Assert.True(rgx.IsMatch(file), @"`ConferenceTracker\Views\Speakers\Create.cshtml` view doesn't contain a `div` with the tag `asp-validation-summary` with a value of `""ModelOnly""` in the `Create` form.");
             
             //FirstName
             pattern = @"<\s*?span\s*?(asp-validation-for\s*?=\s*?""FirstName""\s*?class\s*?=\s*?""text-danger""|class\s*?=\s*?""text-danger""\s*?asp-validation-for\s*?=\s*?""FirstName"")\s*?(>\s*?</\s*?span\s*?>|/>)";
